@@ -2,17 +2,17 @@
   <view class="container">
     <view class="example">
       <uni-forms ref="form" :model="user" labelWidth="80px">
-        <uni-forms-item label="用户昵称" name="nickName">
-          <uni-easyinput v-model="user.nickName" placeholder="请输入昵称" />
+        <uni-forms-item label="用户昵称" name="name">
+          <uni-easyinput v-model="user.name" placeholder="请输入昵称" />
         </uni-forms-item>
-        <uni-forms-item label="手机号码" name="phonenumber">
-          <uni-easyinput v-model="user.phonenumber" placeholder="请输入手机号码" />
+        <uni-forms-item label="手机号码" name="mobile">
+          <uni-easyinput v-model="user.mobile" placeholder="请输入手机号码" />
         </uni-forms-item>
         <uni-forms-item label="邮箱" name="email">
           <uni-easyinput v-model="user.email" placeholder="请输入邮箱" />
         </uni-forms-item>
-        <uni-forms-item label="性别" name="sex" required>
-          <uni-data-checkbox v-model="user.sex" :localdata="sexs" />
+        <uni-forms-item label="性别" name="gender" required>
+          <uni-data-checkbox v-model="user.gender" :localdata="gender" />
         </uni-forms-item>
       </uni-forms>
       <button type="primary" @click="submit">提交</button>
@@ -28,26 +28,26 @@
     data() {
       return {
         user: {
-          nickName: "",
-          phonenumber: "",
+          name: "",
+          mobile: "",
           email: "",
-          sex: ""
+          gender: ""
         },
-        sexs: [{
+        gender: [{
           text: '男',
-          value: "0"
+          value: "1"
         }, {
           text: '女',
-          value: "1"
+          value: "0"
         }],
         rules: {
-          nickName: {
+          name: {
             rules: [{
               required: true,
               errorMessage: '用户昵称不能为空'
             }]
           },
-          phonenumber: {
+          mobile: {
             rules: [{
               required: true,
               errorMessage: '手机号码不能为空'
@@ -77,13 +77,16 @@
     methods: {
       getUser() {
         getUserProfile().then(response => {
-          this.user = response.data
+          this.user = response.result
         })
       },
       submit(ref) {
         this.$refs.form.validate().then(res => {
           updateUserProfile(this.user).then(response => {
             this.$modal.msgSuccess("修改成功")
+						setTimeout(()=>{
+							this.$tab.navigateBack()
+						},1500)
           })
         })
       }

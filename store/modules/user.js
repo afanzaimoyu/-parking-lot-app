@@ -59,9 +59,9 @@ const user = {
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
-          const user = res.user
+          const user = res.result
           const avatar = (user == null || user.avatar == "" || user.avatar == null) ? require("@/static/images/profile.jpg") : baseUrl + user.avatar
-          const username = (user == null || user.userName == "" || user.userName == null) ? "" : user.userName
+          const username = (user == null || user.username == "" || user.username == null) ? "" : user.username
           if (res.roles && res.roles.length > 0) {
             commit('SET_ROLES', res.roles)
             commit('SET_PERMISSIONS', res.permissions)

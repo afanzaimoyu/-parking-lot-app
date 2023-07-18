@@ -88,6 +88,7 @@
     },
     computed: {
       avatar() {
+				console.log(this.$store.state.user.avatar)
         return this.$store.state.user.avatar
       },
       windowHeight() {
@@ -124,7 +125,7 @@
         this.$tab.navigateTo('/pages/mine/about/index')
       },
       handleJiaoLiuQun() {
-        this.$modal.showToast('QQ群：133713780')
+        this.$modal.showToast('QQ群：7777777')
       },
       handleBuilding() {
         this.$modal.showToast('模块建设中~')

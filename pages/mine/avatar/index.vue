@@ -40,6 +40,7 @@
   import config from '@/config'
   import store from "@/store"
   import { uploadAvatar } from "@/api/system/user"
+  import { getInfo } from "@/api/login"
   
   const baseUrl = config.baseUrl
 	let sysInfo = uni.getSystemInfoSync()
@@ -256,10 +257,14 @@
 						success: function (res) {
 							uni.hideLoading()
 							let data = {name: 'avatarfile', filePath: res.tempFilePath}
+							console.log(data)
 							uploadAvatar(data).then(response => {
 								store.commit('SET_AVATAR', baseUrl + response.imgUrl)
 								uni.showToast({ title: "修改成功", icon: 'success' })
-								uni.navigateBack()
+								getInfo()
+								setTimeout(()=>{
+									navigateBack()
+								},1000)
 							})
 						}
 					})

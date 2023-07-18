@@ -47,11 +47,13 @@
         codeUrl: "",
         captchaEnabled: true,
         // 用户注册开关
-        register: false,
+        register: true,
         globalConfig: getApp().globalData.config,
         loginForm: {
-          username: "admin",
-          password: "admin123",
+          // username: "admin",
+          username: "",
+          // password: "admin123",
+          password: "",
           code: "",
           uuid: ''
         }

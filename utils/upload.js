@@ -20,6 +20,7 @@ const upload = config => {
     url = url.slice(0, -1)
     config.url = url
   }
+	console.log('update')
   return new Promise((resolve, reject) => {
       uni.uploadFile({
         timeout: config.timeout || timeout,
