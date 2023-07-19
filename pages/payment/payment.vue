@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<uni-section title="当前费用" type="line">
+		<uni-section title="预估费用" type="line">
 			<template v-slot:right>
 				{{currentFee.nowmoney}} 元
 			</template>
@@ -8,7 +8,7 @@
 				<uni-list-item title="停车场:" :rightText="currentFee.parkingName" />
 				<uni-list-item title="车牌号:" :rightText="currentFee.licensePlate" />
 				<uni-list-item title="入场时间:" :rightText="currentFee.entryTime" />
-				<uni-list-item title="支付时间:" :rightText="currentFee.paymentTime" />
+				<uni-list-item title="车位号:" :rightText="currentFee.paymentTime" />
 			</uni-list>
 		</uni-section>
 
@@ -53,6 +53,7 @@
 
 <script>
 	import cou from '@/components/couponBox/couponBox.vue'
+	import {HowMoney } from '@/api/money.js'
 	import {
 		appInfo
 	} from '../../config';
@@ -65,6 +66,7 @@
 			'couponBoxOption.isChecked'(newVal) {
 				if (!newVal) {
 					this.couponBoxOption.text = '无';
+					this.apiIn(this.currentFee.licensePlate)
 				}
 			}
 		},
@@ -77,7 +79,7 @@
 					entryTime: "右侧文字",
 					paymentTime: "右侧文字"
 				},
-
+			
 				couponBoxOption: {
 					isShow: false, // 控制弹出窗口的显示和隐藏
 					radioVal: 0, // 选中的优惠券的值
@@ -141,11 +143,20 @@
 			@description 查询初始数据
 			@param 车牌 优惠券id
 			*/
-			async apiIn(car_num, rad = 0) {
+			apiIn(car_num, rad = 0,mode=0) {
 				this.$modal.loading("查询中，请耐心等待...");
 				// 查询数据 
-				console.log(car_num,rad)
-				let shu = await console.log('进行查询')
+				console.log(typeof(car_num),rad)
+				HowMoney(car_num, rad).then(res=>{
+					if(res.code===200){
+						this.currentFee.nowmoney = res.result.nowmoney
+						this.currentFee.entryTime = res.result.creation_time;
+						// 获取当前时间
+						this.currentFee.paymentTime = res.result.parking_spot
+						
+						
+					}
+				})
 				//
 				this.$modal.closeLoading();
 

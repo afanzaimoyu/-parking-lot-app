@@ -1,8 +1,9 @@
 // 应用全局配置
 module.exports = {
   // baseUrl: 'https://vue.ruoyi.vip/prod-api',
-  // baseUrl: 'http://127.0.0.1:8000/api/wechat',
-  baseUrl: 'http://192.168.46.185:8000',
+
+  // baseUrl: 'http://192.168.46.185:8000',
+  baseUrl: 'http://127.0.0.1:8000',
   // 应用信息
   appInfo: {
     // 应用名称

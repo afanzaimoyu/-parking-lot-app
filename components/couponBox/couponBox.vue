@@ -14,6 +14,7 @@
 </template>
 
 <script>
+	import {get_Available} from '@/api/money.js'
 	export default {
 		props: {
 			// 定义组件的属性，使用对象形式
@@ -24,13 +25,12 @@
 					radioVal: 0, // 选中的优惠券的值
 					text: '无',
 					isChecked: false, // 是否选中了优惠券
-					couponData: [{
-						id: 1,
-						title: "1"
-					}, {
-						id: 2,
-						title: "2"
-					}] // 优惠券数据列表
+					couponData: [
+						{
+							id:1,
+							title:"20 %"
+						},
+					] // 优惠券数据列表
 				})
 			}
 		},
@@ -43,6 +43,9 @@
 			// 是否有优惠券
 			isCouponDataAvailable() {
 				console.log('多少优惠券', this.couponBoxOption.couponData.length)
+				// get_Available().then(res=>{
+				// 	this.couponData = res.result
+				// })
 				return this.couponBoxOption.couponData.length > 0;
 			}
 			// 发送请求 获取优惠券
